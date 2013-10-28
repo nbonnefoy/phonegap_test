@@ -34,6 +34,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        naviguate();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -45,9 +46,11 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        
+        onDeviceReady();
     }
     
-    function onDeviceReady() {
+    function naviguate() {
          var ref = window.open('http://apache.org', '_blank', 'location=yes');
          ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
          ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });

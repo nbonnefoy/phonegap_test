@@ -34,7 +34,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        naviguate();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -50,12 +49,20 @@ var app = {
         onDeviceReady();
     }
     
-    function naviguate() {
-         var ref = window.open('http://apache.org', '_blank', 'location=yes');
-         ref.addEventListener('loadstart', function(event) { alert('start: ' + event.url); });
-         ref.addEventListener('loadstop', function(event) { alert('stop: ' + event.url); });
-         ref.addEventListener('loaderror', function(event) { alert('error: ' + event.message); });
-         ref.addEventListener('exit', function(event) { alert(event.type); });
+    function capturePhoto() {
+        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL
+        }); 
     }
+    
+    function onSuccess(imageData) {
+    var image = document.getElementById('myImage');
+    image.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+
     
 };
